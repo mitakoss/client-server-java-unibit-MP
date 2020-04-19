@@ -50,6 +50,11 @@ public class ServerForm extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton1.setText("Send");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jtaSend.setColumns(20);
         jtaSend.setRows(5);
@@ -106,6 +111,13 @@ public class ServerForm extends javax.swing.JFrame {
         
         st = new ServerThread(this);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        //use st- serverthread object to call sendMessage method to send message to client
+        st.sendMessage(jtaSend.getText());
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

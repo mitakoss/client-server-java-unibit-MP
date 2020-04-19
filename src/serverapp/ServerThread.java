@@ -79,10 +79,12 @@ public class ServerThread extends Thread{
             start();
         }
         public void run(){
-            try{
-                sf.jtaRec.append(oin.readObject().toString()+"\n");
-            }catch(Exception e){
-                e.printStackTrace();
+            while(true){
+                try{
+                    sf.jtaRec.append(oin.readObject().toString()+"\n");
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
             }
         }
     }
