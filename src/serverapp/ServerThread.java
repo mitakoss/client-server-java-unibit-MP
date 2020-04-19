@@ -38,7 +38,7 @@ public class ServerThread extends Thread{
     //create a method to send a message
     public void sendMessage(String msg){
         try{
-            out.writeObject(msg);
+            out.writeObject(msg.toString());
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -62,8 +62,28 @@ public class ServerThread extends Thread{
         try{
             oin = new ObjectInputStream(socket.getInputStream());
             out = new ObjectOutputStream(socket.getOutputStream());
+            MsgRecThread mrt = new MsgRecThread(sf, oin, out);
         }catch (Exception e){
             e.printStackTrace();
+        }
+    }
+    public class MsgRecThread extends Thread{
+        ServerForm sf;
+        ObjectInputStream oin;
+        ObjectOutputStream out;
+        
+        public MsgRecThread(ServerForm sf, ObjectInputStream oin, ObjectOutputStream out){
+            this.sf = sf;
+            this.oin = oin;
+            this.out = out;
+            start();
+        }
+        public void run(){
+            try{
+                sf.jtaRec.setText(oin.readObject().toString()+"\n");
+            }catch(Exception e){
+                e.printStackTrace();
+            }
         }
     }
 }
